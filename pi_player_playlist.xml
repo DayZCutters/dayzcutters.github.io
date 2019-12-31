@@ -49,18 +49,81 @@
 <!-- To add more songs, simple copy one of <song></song> contents below and paste it below the others and update the information as needed.       -->
 
                 <song>
-                        <title>2nd Chance</title>
-                        <artist>C Murder</artist>
-                        <filename>songs/2nd_chance.MP3</filename>
+                        <title>DayZ Metal Mayhem Radio</title>
+                        <artist>Cypher</artist>
+                        <filename>songs/1.MP3</filename>
                         <songimage>song-avatar/cars.jpg</songimage> 
                 </song>
                 
                 
                 
                 <song>
-                        <title>2nd Chance</title>
-                        <artist>C Murder</artist>
-                        <filename>songs/2nd_chance.MP3</filename>
+                        <title>DayZ Metal Mayhem Radio</title>
+                        <artist>Cypher</artist>
+                        <filename>songs/2.MP3</filename>
+                        <songimage>song-avatar/cars.jpg</songimage> 
+                </song>
+                
+                
+                
+                <song>
+                        <title>DayZ Metal Mayhem Radio</title>
+                        <artist>Cypher</artist>
+                        <filename>songs/3.MP3</filename>
+                        <songimage>song-avatar/cars.jpg</songimage> 
+                </song>
+                
+                
+                
+                <song>
+                        <title>DayZ Metal Mayhem Radio</title>
+                        <artist>Cypher</artist>
+                        <filename>songs/4.MP3</filename>
+                        <songimage>song-avatar/cars.jpg</songimage> 
+                </song>
+                
+                
+                
+                <song>
+                        <title>DayZ Metal Mayhem Radio</title>
+                        <artist>Cypher</artist>
+                        <filename>songs/5.MP3</filename>
+                        <songimage>song-avatar/cars.jpg</songimage> 
+                </song>
+                
+                
+                
+                <song>
+                        <title>DayZ Metal Mayhem Radio</title>
+                        <artist>Cypher</artist>
+                        <filename>songs/6.MP3</filename>
+                        <songimage>song-avatar/cars.jpg</songimage> 
+                </song>
+                
+                
+                
+                <song>
+                        <title>DayZ Metal Mayhem Radio</title>
+                        <artist>Cypher</artist>
+                        <filename>songs/7.MP3</filename>
+                        <songimage>song-avatar/cars.jpg</songimage> 
+                </song>
+                
+                
+                
+                <song>
+                        <title>DayZ Metal Mayhem Radio</title>
+                        <artist>Cypher</artist>
+                        <filename>songs/8.MP3</filename>
+                        <songimage>song-avatar/cars.jpg</songimage> 
+                </song>
+                
+                
+                
+                <song>
+                        <title>DayZ Metal Mayhem Radio</title>
+                        <artist>Cypher</artist>
+                        <filename>songs/9.MP3</filename>
                         <songimage>song-avatar/cars.jpg</songimage> 
                 </song>
                 
