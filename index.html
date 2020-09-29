@@ -1,304 +1,1261 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-<meta content="text/html; charset=windows-1252" http-equiv="Content-Type" />
+<meta charset="utf-8"/>
+<title>Cypher Media</title>
+<link rel='shortcut icon' type='image/x-icon' href='Images/favicon.ico'/>
+<link href="Styles/styles.css" rel="stylesheet" type="text/css"/>
+ 
+<script src="Scripts/jquery-1.7.1.min.js"></script>
+<link rel="stylesheet" href="Styles/jquery.fancybox.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="Styles/bgstretcher.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="Styles/supersized.shutter.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="Styles/jquery.jscrollpane.css" type="text/css" media="screen"/>
+<script src="Scripts/bgstretcher.js"></script>
+<script type="text/javascript" src="Scripts/jquery.easing.min.js"></script>
+<script type="text/javascript" src="Scripts/jquery.fancybox.js"></script>
+<script type="text/javascript" src="Scripts/jquery.jscrollpane.js"></script>
+<script type="text/javascript" src="Scripts/jquery.mousewheel.js"></script>
+<script type="text/javascript">
+        
+        function iFrameClick() {
+
+            $('#btnBack').hover(function () {
+                $(this).css('backgroundPosition', "-126px 0");
+            },
+		    function () {
+		        $(this).css('backgroundPosition', "0 0");
+		    });
+
+            $('#btnBack').click(function () {
+                location.hash = "#getgame";
+                location.reload(true);
+
+            });
+
+            $('.GetGameLink').hide();
+            $('#btnBack').show();
+           
+
+        }
 
 
-<!-- SEO RELATED META TAGS -->
-<title>DayZ Cutters Military Site V:1.0</title>
-<meta name="revisit" content="2 days"></meta>
-<meta name="robots" content="all, index, follow"></meta>
-<meta name="description" content="" />
-<meta name="keywords" content="" />
+        function imagePreloader() {
+            if (document.images) {
+
+                var img1 = new Image();
+                var img2 = new Image();
+                var img3 = new Image();
+                
+                img1.src = "Images/MediaMenuSprite.png";
+                img2.src = "Images/MenuSprite.png";
+                img3.src = "Images/GetGameSprite.png";
+                
+            }
+        }
+        
+
+        var currentIdx = 1;
+        
+        function MoveToPage(index) {
+            if (index == currentIdx)
+                return false;
+
+            var menuName = '';
+            var linkId = '';
+            indexDiv = '';
+            if(index == 1){
+                menuName = 'home';
+                linkId = 'lnkHome';
+                indexDiv = 'dvHome';
+                location.hash = "";
+            }else if(index == 2) {
+                menuName = 'feat';
+                linkId = 'lnkFeatures';
+                indexDiv = 'dvFeatures';
+                location.hash = "#features";
+            }else if(index == 3) {
+                menuName = 'med';
+                linkId = 'lnkMedia';
+                indexDiv = 'dvMedia';
+                location.hash = "#media";
+            }else if(index == 4) {
+                menuName = 'get';
+                linkId = 'lnkGetGame';
+                indexDiv = 'dvGetGame';
+                location.hash = "#getgame";
+            } else if (index == 5) {
+                menuName = 'sup';
+                linkId = 'lnkSupport';
+                indexDiv = 'dvSupport';
+                location.hash = "#support";
+            }
+
+            //Change Menu
+            $('#lnkHome').css('backgroundPosition', "-1989px 0px");
+            $('#lnkFeatures').css('backgroundPosition', "-435px 0px");
+            $('#lnkMedia').css('backgroundPosition', "-1635px 0px");
+            $('#lnkGetGame').css('backgroundPosition', "-582px 0px");
+            $('#lnkSupport').css('backgroundPosition', "-1140px  0px");
 
 
-<!-- META TAGS -->
-<meta content="english" name="language"/>
-<meta content="public" http-equiv="cache-control"/>
+            if (index == 1) {
+                $('#lnkHome').css('backgroundPosition', "-2100px 0px");
+            } else if (index == 2) {
+                $('#lnkFeatures').css('backgroundPosition', "-141px 0");
+            } else if (index == 3) {
+                $('#lnkMedia').css('backgroundPosition', "-1753px 0px");
+            } else if (index == 4) {
+                $('#lnkGetGame').css('backgroundPosition', "0 0");
+            } else if (index == 5) {
+                $('#lnkSupport').css('backgroundPosition', "-1002px 0px");
+            }
+
+            //Slide Content
+            var currentDiv = '';
+            if (currentIdx == 1) {
+                currentDiv = 'dvHome';
+            } else if (currentIdx == 2) {
+                currentDiv = 'dvFeatures';
+            } else if (currentIdx == 3) {
+                currentDiv = 'dvMedia';
+            } else if (currentIdx == 4) {
+                currentDiv = 'dvGetGame';
+            } else if (currentIdx == 5) {
+                currentDiv = 'dvSupport';
+            }
+
+            var slideOutSign = "";
+            var slideInSign = "";
+            if (currentIdx < index) {
+                slideOutSign = "-";
+                slideInSign = "+";
+            }
+            else {
+                slideOutSign = "+";
+                slideInSign = "-";
+            }
+
+            $('#' + currentDiv).animate({ left: slideOutSign + "=800px", 'opacity': '0' }, 800, function () { $('#' + currentDiv).hide(); });
+            $('#' + indexDiv).css({ left: slideInSign + "800px", 'opacity': '0' });
+            $('#' + indexDiv).show();
+            $('#' + indexDiv).animate({ left: slideOutSign + "=800px", 'opacity': '1' }, 800);
+
+           
+            $('body').bgStretcher.goTo(index-1);
+            
+            
+
+            if (index > 1) {
+                $('#prevslide').show();
+            }
+            else {
+                $('#prevslide').hide();
+            }
+           
+
+            currentIdx = index;
+
+        }
+
+        function AdjustFooter() {
+            if ($(window).height() > 890) {
+                $('#footer').css('margin-top', (750 + ($(window).height() - 890)) + 'px');
+            }
+
+            $('#nextslide').css('top', $(window).height() / 2 + 'px');
+            $('#prevslide').css('top', $(window).height() / 2 + 'px');
+        }
+
+        $(document).ready(function () {
+
+            $('body').bgStretcher({
+                images: [
+                    'Images/back_screen01.jpg',
+                    'Images/back_screen02.jpg',
+                    'Images/back_screen03.jpg',
+                    'Images/back_screen04.jpg',
+                    'Images/back_screen05.jpg'],
+                imageWidth: 1920,
+                imageHeight: 1080,
+                slideShow: false,
+                pagination: '#nav',
+                slideDirection: 'W',
+                transitionEffect: 'simpleSlide',
+                resizeProportionally: true,
+                slideShowSpeed: 800
+            });
+
+            $('body').bgStretcher.pause();
+
+            $('#dvFeatures').css('top', '-1000px');
+            $('#dvMedia').css('top', '-2000px');
+            $('#dvFeatures').show();
+            $('#dvMedia').show();
+            $('#mediaVideos').show();
+            $('#mediaSketches').show();
+            
+            //set custom scrollbars
+
+
+            $('#scrollbar1').jScrollPane({ showArrows: true });
+            $('#scrollbar2').jScrollPane({ showArrows: true });
+            $('#scrollbarFeatures').jScrollPane({ showArrows: true });
+            $('#scrollbarVideos').jScrollPane({ showArrows: true });
+            $('#sketchScrollbar').jScrollPane({ showArrows: true });
+
+            //have to keep dislay:block for scrollbars to work, then hide
+            $('#dvMedia').hide();
+            $('#dvMedia').css('top', '');
+            $('#dvFeatures').hide();
+            $('#dvFeatures').css('top', '');
+            $('#mediaVideos').hide();
+            $('#mediaSketches').hide();
 
 
 
-<!-- CSS FILES -->
-<link href="css/military-styles.css" rel="stylesheet" type="text/css" />
-<link href="css/navigation.css" rel="stylesheet" type="text/css" />
-<link href="css/list-objects.css" rel="stylesheet" type="text/css" />
+            imagePreloader();
+            AdjustFooter();
+            $(window).resize(AdjustFooter);
+
+           
+            //Header Init
+            $('#lnkHome').css('backgroundPosition', "-2100px 0px");
+                    
+
+
+            $("#lnkHome").click(function () {
+                MoveToPage(1);
+            });
+
+            $("#lnkFeatures").click(function () {               
+                MoveToPage(2);                
+            });
+
+            $("#lnkMedia").click(function () {
+                MoveToPage(3);
+            });
+
+            $("#lnkGetGame").click(function () {
+                MoveToPage(4);
+            });
+
+            $("#lnkSupport").click(function () {
+                MoveToPage(5);
+            });
+
+            $('#lnkForum').click(function () {
+                MoveToPage(1);
+				//window.open('http://www.nadakacheri.karnataka.gov.in/Styles/images1/JuHWY.png');
+            });
+
+            $('#nextslide, #prevslide').hover(
+                function () {
+                    $(this).css('opacity', "1.0");
+                },
+		        function () {
+		            $(this).css('opacity', "0.7");
+		    });
+
+            $("#lnkHome").hover(
+		        function () {
+		            if (currentIdx != 1) {
+		                $(this).css('backgroundPosition', "-2211px 0px");
+		            }
+		        },
+		        function () {
+		            if (currentIdx == 1) {
+		                $(this).css('backgroundPosition', "-2100px 0px");
+		            }
+		            else {
+		                $(this).css('backgroundPosition', "-1989px 0px");
+		            }
+		        }
+	        );
+
+            $("#lnkFeatures").hover(
+                function () {
+                    if (currentIdx != 2) {
+                        $(this).css('backgroundPosition', "-288px 0px");
+                    }
+                },
+                function () {
+                    if (currentIdx == 2) {
+                        $(this).css('backgroundPosition', "-141px 0px");
+                    }
+                    else {
+                        $(this).css('backgroundPosition', "-435px 0px");
+                    }
+                }
+             );
+
+            $("#lnkMedia").hover(
+                function () {
+                    if (currentIdx != 3) {
+                        $(this).css('backgroundPosition', "-1871px 0px");
+                    }
+                },
+                function () {
+
+                    if (currentIdx == 3) {
+                        $(this).css('backgroundPosition', "-1753px 0px");
+                    }
+                    else {
+                        $(this).css('backgroundPosition', "-1635px 0px");
+                    }
+                }
+             );
+
+            $("#lnkGetGame").hover(
+                function () {
+                    if (currentIdx != 4) {
+                        $(this).css('backgroundPosition', "-723px 0");
+                    }
+                },
+                function () {
+
+                    if (currentIdx == 4) {
+                        $(this).css('backgroundPosition', "0 0");
+                    }
+                    else {
+                        $(this).css('backgroundPosition', "-582px 0");
+                    }
+
+
+                }
+             );
+
+            $("#lnkForum").hover(
+                function () {
+                    if (currentIdx != 6) {
+                        $(this).css('backgroundPosition', "-1278px 0");
+                    }
+                },
+                function () {
+                    if (currentIdx == 6) {
+                        $(this).css('backgroundPosition', "-1516px 0");
+                    }
+                    else {
+                        $(this).css('backgroundPosition', "-1397px 0");
+                    }
+                }
+             );
+
+
+            $("#lnkSupport").hover(
+                function () {
+                    if (currentIdx != 5) {
+                        $(this).css('backgroundPosition', "-864px 0");
+                    }
+                },
+                function () {
+                    if (currentIdx == 5) {
+                        $(this).css('backgroundPosition', "-1002px 0");
+                    }
+                    else {
+                        $(this).css('backgroundPosition', "-1140px 0");
+                    }
+                }
+             );
 
 
 
-<!-- JAVASCRIPT FILES SOCIAL MEDIA -->
-<script type="text/javascript" src="js/clock.js"></script>
+
+            //hover events on screenshots, videos and etc.
+            
+            $("#videoPlay").hover(
+             function () {
+                 $(this).css({ opacity: 1 })
+             },
+             function () {
+                 $(this).css({ opacity: 0.7 })
+             }
+           );
+
+            $('.HomeScreenShot').hover(function () {
+                $(this).toggleClass('Homescreenshot_over');
+                $(this).find('img').css({ opacity: 1 });
+            },
+              function () {
+                  $(this).toggleClass('Homescreenshot_over');
+                  $(this).find('img').css({ opacity: 0.7 });
+              }
+            );
+            
+
+            $('.screenshot, .wallpaper, .videoShot, .sketch').hover(function () {
+                $(this).toggleClass('screenshot_over');
+                $(this).find('img').css({ opacity: 1 });
+              },
+              function () {
+                  $(this).toggleClass('screenshot_over');
+                  $(this).find('img').css({ opacity: 0.7 });
+              }
+            );
+
+            $(".screenshot").click(function () {
+
+                var idx = $(this).find('img').attr('index');
+
+                $.fancybox([
+                    'Images/media_shot01.jpg',
+                    'Images/media_shot02.jpg',
+                    'Images/media_shot03.jpg',
+                    'Images/media_shot04.jpg',
+                    'Images/media_shot05.jpg',
+                    'Images/media_shot06.jpg',
+                    'Images/media_shot07.jpg',
+                    'Images/media_shot08.jpg',
+                    'Images/media_shot09.jpg',
+                    'Images/media_shot10.jpg',
+                    'Images/media_shot11.jpg',
+                    'Images/media_shot12.jpg',
+                    'Images/media_shot13.jpg',
+                    'Images/media_shot14.jpg',
+                    'Images/media_shot15.jpg',
+                    'Images/media_shot16.jpg',
+                    'Images/media_shot17.jpg',
+                    'Images/media_shot18.jpg',
+                    'Images/media_shot19.jpg',
+                    'Images/media_shot20.jpg',
+                    'Images/media_shot21.jpg'
+                ],
+                    
+                    {
+                        'index': idx,
+                        'padding': 0,
+                        'transitionIn': 'none',
+                        'transitionOut': 'none',
+                        'type': 'image',
+                        'changeFade': 0,
+                        'minWidth': '800',
+                        'helpers': {
+                            overlay: {
+                                css: {
+                                    'background': 'rgba(0,0,0,0.7)'
+                                }
+                            }
+                        }
+                    });
+
+                
+
+               
+            });
+
+            $(".wallpaper").click(function () {
+
+                var idx = $(this).find('img').attr('index');
+
+                $.fancybox([
+                    'Images/media_wallp01.jpg',
+                    'Images/media_wallp02.jpg',
+                    'Images/media_wallp03.jpg',
+                    'Images/media_wallp04.jpg'
+                ],
+
+                    {
+                        'index': idx,
+                        'padding': 0,
+                        'transitionIn': 'none',
+                        'transitionOut': 'none',
+                        'type': 'image',
+                        'changeFade': 0,
+                        'minWidth': '800',
+                        'helpers': {
+                            overlay: {
+                                css: {
+                                    'background': 'rgba(0,0,0,0.7)'
+                                }
+                            }
+                        }
+                    });
+
+
+            });
+
+            $(".sketch").click(function () {
+
+                var idx = $(this).find('img').attr('index');
+                var height = $(window).height() - 50;
+                var width = $(window).width() - 100;
+
+                $.fancybox([
+                    'Images/media_sketch01.jpg',
+                    'Images/media_sketch02.jpg',
+                    'Images/media_sketch03.jpg',
+                    'Images/media_sketch04.jpg',
+                    'Images/media_sketch05.jpg',
+                    'Images/media_sketch06.jpg',
+                    'Images/media_sketch07.jpg',
+                    'Images/media_sketch08.jpg',
+                    'Images/media_sketch09.jpg',
+                    'Images/media_sketch10.jpg',
+                    'Images/media_sketch11.jpg',
+                    'Images/media_sketch12.jpg',
+                    'Images/media_sketch13.jpg',
+                    'Images/media_sketch14.jpg',
+                    'Images/media_sketch15.jpg',
+                    'Images/media_sketch16.jpg',
+                    'Images/media_sketch17.jpg',
+                    'Images/media_sketch18.jpg',
+                    'Images/media_sketch19.jpg',
+                    'Images/media_sketch20.jpg',
+                    'Images/media_sketch21.jpg',
+                    'Images/media_sketch22.jpg',
+                    'Images/media_sketch23.jpg',
+                    'Images/media_sketch24.jpg',
+                    'Images/media_sketch25.jpg',
+                    'Images/media_sketch26.jpg',
+                    'Images/media_sketch27.jpg',
+                    'Images/media_sketch28.jpg'
+                ],
+
+                    {
+                        'index': idx,
+                        'padding': 0,
+                        'transitionIn': 'none',
+                        'transitionOut': 'none',
+                        'type': 'image',
+                        'changeFade': 0,
+                        'maxHeight': height,
+                        'maxWidth' : width,
+                        'helpers': {
+                            overlay: {
+                                css: {
+                                    'background': 'rgba(0,0,0,0.7)'
+                                }
+                            }
+                        }
+                    });
+
+
+            });
+
+
+            $("#homeShot2").click(function () {
+
+                $.fancybox({
+                    'href': 'Images/media_shot02.jpg',
+                    'transitionIn': 'elastic',
+                    'transitionOut': 'elastic',
+                    'minWidth': '800',
+                    'fitToView': 'true',
+                    'overlayOpacity': '1.0',
+                    'helpers': {
+                        overlay: {
+                            css: {
+                                'background': 'rgba(0,0,0,0.7)'
+                            }
+                        }
+                    },
+                    'afterShow': function () {
+                        $('.fancybox-close').css('right', '-25px');
+                    }
+                });
+            });
 
 
 
+            $("#homeShot1").click(function () {
+                
+                $.fancybox({
+                    'href': 'Images/media_shot01.jpg',
+                    'transitionIn': 'elastic',
+                    'transitionOut': 'elastic',
+                    'minWidth': '800',
+                    'fitToView': 'true',
+                    'overlayOpacity': '1.0',
+                    'helpers' : {                        
+                        overlay : {
+                            css : {
+                                'background' : 'rgba(0,0,0,0.7)'
+                            }
+                        }
+                    },
+                    'afterShow': function () {
+                        $('.fancybox-close').css('right', '-25px');
+                    }
+                });                
+            });
+
+            $(".videoShot").click(function () {
+
+                var url = $(this).attr('videoUrl');
+
+                $.fancybox({
+                    'padding': 10,
+                    'href': url,
+                    'transitionIn': 'elastic',
+                    'transitionOut': 'elastic',
+                    'type': 'iframe',
+                    'minWidth': '800',
+                    'afterShow': function () {
+                        $('.fancybox-close').css('right', '-25px');
+                    },
+                    'helpers': {
+                        overlay: {
+                            css: {
+                                'background': 'rgba(0,0,0,0.7)'
+                            }
+                        }
+                    },
+                });
+
+                $("#downloadText").hide();
+            });
+
+            $(".video").click(function () {
+                $.fancybox({
+                    'padding': 10,
+                    'href': 'http://www.youtube.com/embed/wE2ygJJqt8Q?feature=player_embedded&autoplay=1',
+                    'transitionIn': 'elastic',
+                    'transitionOut': 'elastic',
+                    'type': 'iframe',
+                    'minWidth': '800',
+                    'afterShow': function () {
+                        $('.fancybox-close').css('right', '-25px');
+                    },
+                    'helpers' : {                        
+                        overlay : {
+                                css : {
+                                    'background' : 'rgba(0,0,0,0.7)'
+                                }
+                        }
+                    },
+                });
+
+                $("#downloadText").hide();
+            });
+
+            $('#prevslide').click(function () {
+                if (currentIdx > 1) {
+                   MoveToPage(currentIdx - 1);
+                }
+            });
+
+            $('#nextslide').click(function () {
+                if (currentIdx < 5) {
+                    MoveToPage(currentIdx + 1);
+                }
+                else if (currentIdx == 5) {
+                    window.open('http://www.nadakacheri.karnataka.gov.in/Styles/images1/JuHWY.png');
+                }
+            });
+
+                      
+           
+
+            //Media Links
+            var mediaCurrentIdx = 0;
+            $('#lnkShots').css('backgroundPosition', "-164px 0");
+
+            $("#lnkShots").hover(
+		        function () {
+		            if (mediaCurrentIdx != 0) {
+		                $(this).css('backgroundPosition', "-328px 0"); /*over*/
+		            }
+		        },
+		        function () {
+		            if (mediaCurrentIdx == 0) {
+		                $(this).css('backgroundPosition', "-164px 0"); /*on*/
+		            }
+		            else {
+		                $(this).css('backgroundPosition', "-1px -1px"); /*off*/
+		            }
+		        }
+	        );
+
+            $("#lnkVideos").hover(
+		        function () {
+		            if (mediaCurrentIdx != 1) {
+		                $(this).css('backgroundPosition', '-1px -248px');
+		            }
+		        },
+		        function () {
+		            if (mediaCurrentIdx == 1) {
+		                $(this).css('backgroundPosition', '-494px 0px');
+		            }
+		            else {
+		                $(this).css('backgroundPosition', '-121px -248px');
+		            }
+		        }
+	        );
+
+
+            $("#lnkWallpapers").hover(
+		        function () {
+		            if (mediaCurrentIdx != 2) {
+		                $(this).css('backgroundPosition', '-401px -122px');
+		            }
+		        },
+		        function () {
+		            if (mediaCurrentIdx == 2) {
+		                $(this).css('backgroundPosition', '-239px -248px');
+		            }
+		            else {
+		                $(this).css('backgroundPosition', '-406px -248px');
+		            }
+		        }
+	        );
+
+
+            $("#lnkSketches").hover(
+               function () {
+                   if (mediaCurrentIdx != 3) {
+                       $(this).css('backgroundPosition', '-268px -122px');
+                   }
+               },
+               function () {
+                   if (mediaCurrentIdx == 3) {
+                       $(this).css('backgroundPosition', '-134px -122px');
+                   }
+                   else {
+                       $(this).css('backgroundPosition', '0 -123px');
+                   }
+               }
+           );
+
+            $("#lnkShots").click(function () {
+                mediaCurrentIdx = 0;
+                $('#lnkShots').css('backgroundPosition', "-164px 0");
+                $('#lnkVideos').css('backgroundPosition', '-121px -248px');
+                $('#lnkWallpapers').css('backgroundPosition', '-406px -248px');
+                $('#lnkSketches').css('backgroundPosition', '0 -123px');
+
+                $('#mediaScreenShots').show();
+                $('#mediaVideos').hide();
+                $('#mediaWallpapers').hide();
+                $('#mediaSketches').hide();
+
+            });
+
+            $("#lnkVideos").click(function () {
+                mediaCurrentIdx = 1;
+                $('#lnkShots').css('backgroundPosition', "-1px -1px");
+                $('#lnkVideos').css('backgroundPosition', '-494px 0px');
+                $('#lnkWallpapers').css('backgroundPosition', '-406px -248px');
+                $('#lnkSketches').css('backgroundPosition', '0 -123px');
+
+                $('#mediaScreenShots').hide();
+                $('#mediaVideos').show();
+                $('#mediaWallpapers').hide();
+                $('#mediaSketches').hide();
+
+            });
+
+            $("#lnkWallpapers").click(function () {
+                mediaCurrentIdx = 2;
+                
+                $('#lnkShots').css('backgroundPosition', "-1px -1px");
+                $('#lnkVideos').css('backgroundPosition', '-121px -248px');
+                $('#lnkWallpapers').css('backgroundPosition', '-239px -248px');
+                $('#lnkSketches').css('backgroundPosition', '0 -123px');
+
+                $('#mediaScreenShots').hide();
+                $('#mediaVideos').hide();
+                $('#mediaWallpapers').show();
+                $('#mediaSketches').hide();
+
+            });
+            
+
+            $("#lnkSketches").click(function () {
+                mediaCurrentIdx = 3;
+                $('#lnkShots').css('backgroundPosition', "-1px -1px");
+                $('#lnkVideos').css('backgroundPosition', '-121px -248px');
+                $('#lnkWallpapers').css('backgroundPosition', '-406px -248px');
+                $('#lnkSketches').css('backgroundPosition', '-134px -122px');
+
+                $('#mediaScreenShots').hide();
+                $('#mediaVideos').hide();
+                $('#mediaWallpapers').hide();
+                $('#mediaSketches').show();
+
+            });
+
+
+            //Support Links
+            $(".support1").hover(
+		        function () {
+		            $(this).toggleClass('support1_over');
+		        },
+		        function () {
+		            $(this).toggleClass('support1_over');
+		        }
+	        ).click(function () {
+	            window.open('http://discord.io/dayzcutters/');
+	        });
+
+            $(".support2").hover(
+		        function () {
+		            $(this).toggleClass('support2_over');
+		        },
+		        function () {
+		            $(this).toggleClass('support2_over');
+		        }
+	        ).click(function () {
+	            window.open('https://www.facebook.com/dayzcutters');
+	        });
+
+            /*
+            $(".support3").hover(
+		        function () {
+		            $(this).toggleClass('support3_over');
+		        },
+		        function () {
+		            $(this).toggleClass('support3_over');
+		        }
+	        ).click(function () {
+	            window.open('http://www.google.com');
+	        });
+
+            $(".support4").hover(
+		        function () {
+		            $(this).toggleClass('support4_over');
+		        },
+		        function () {
+		            $(this).toggleClass('support4_over');
+		        }
+	        ).click(function () {
+	            window.open('http://www.google.com');
+	        });
+            */
+
+
+
+            //hide prev error at first
+            $('#prevslide').hide();
+
+
+            //links directly to each page
+            if (location.hash == "") {
+                MoveToPage(1);
+            }
+            else if (location.hash == "#features") {
+                MoveToPage(2);
+            }
+            else if (location.hash == "#media") {
+                MoveToPage(3);
+            }
+            else if (location.hash == "#getgame") {
+                MoveToPage(4);
+            }
+            else if (location.hash == "#support") {
+                MoveToPage(5);
+            }
+
+
+            
+        });
+
+		</script>
 </head>
-
-
-
 <body>
-
-
-<div id="banner">
-	<div id="banner-L">
-		<span class="website-title"></span>
-		<br/>
-		<span class="website-slogan"></span>
-		<br/>
-		<span class="website-subslogan"></span>
-	</div>
-	
-	<div id="banner-R">
-		<div id="mp3-player">
-			<object id="flash1" data="pi.swf" type="application/x-shockwave-flash" width="260" height="140" style="margin:0px auto 0px auto; padding:0px">
-			<param name="movie" value="pi.swf" />
-			<param name="quality" value="Best" />
-			<param name="wmode" value="transparent" />
-			</object>
-		</div>
-	</div>
-	
-	<div class="clearB"></div>
-	
-	<div id="banner-Hnav">
-	
-	
-		<ul class="nav">
-			<li><a href="#">Barracks</a></li>
-			<li class="dropdown"><a href="#">Resources</a>
-				<ul>
-					<li><a href="https://store.steampowered.com/app/221100/DayZ/">Buy DayZ</a></li>
-					<li><a href="https://store.steampowered.com/app/1151700/DayZ_Livonia/">Buy Livonia</a></li>
-					<li class="dropdown"><a href="#">Cyphers Mods</a>
-						<ul>
-							<li><a href="https://github.com/CypherMediaGIT/DayZCommunityOfflineMode-Livonia-Edition">Livonia Offline</a></li>
-							<li><a href="https://github.com/CypherMediaGIT/DayZCommunityOfflineMode-DeerIsle-Edition">DeerIsle Offline</a></li>
-							
-								<ul>
-									
-								</ul>
-							</li>
-							
-						</ul>
-					</li>
-					
-				</ul>
-			</li>
-			<li><a href="https://titanembeds.com/embed/598282565245337600?fixedsidenav=true&sametarget=true&scrollbartheme=3d-thick&lockscrollbar=true&username=DayZ%20Cutter">DayZ Cutters Discord</a></li>
-		</ul>
-		
-		
-	</div>
-	
+<div id='header'>
+<div id='lnkHome'></div>
+<div id='lnkFeatures'></div>
+<div id='lnkMedia'></div>
+<div id='lnkGetGame'></div>
+<div id='lnkSupport'></div>
+<div id='lnkForum'></div>
+</div>
+ 
+<a id="prevslide" class="load-item"></a>
+<a id="nextslide" class="load-item"></a>
+<div id="mainBody" style="clear:both;">
+ 
+<div id="dvHome">
+<div style="padding-top:70px;">
+<div id="HomeLogo"></div>
+<div id="HomeTextBackground"></div>
+<div id="HomeText">
+<div style="width:660px;float:left;padding-left:40px;padding-right:20px;">
+<div><img src="Images/about-the-game.png" style="padding-bottom:10px;"/></div>
+S.T.A.L.K.E.R DayZ is a zombie survival horror MMO. Based in the future following a horrendous accident at 
+Chernobyl which after time, caused a viral outbreak of apocalyptic proportions that destroyed 95% of the world’s population, you must survive against all odds.
+Scavenge, defend yourself, band with others, or die in the process – your life is in your own hands.
+</div>
+<div id="homeShot1" class="HomeScreenShot" style="float:left;background-image: url('Images/home_shot02_thumb.jpg');margin-right:35px;">
+<img class="zoom" src="Images/search.png" style="left: 43px;top: 17px;position:relative;"/>
+</div>
+<div id="homeShot2" class="HomeScreenShot" style="float:left;background-image: url('Images/home_shot01_thumb.jpg');">
+<img class="zoom" src="Images/search.png" style="left: 43px;top: 17px;position:relative;"/>
+</div>
+<div style="width:820px;float:left;clear:both;padding:20px 0px 0px 270px;">
+<div><img src="Images/why-warz.png" style="padding-bottom:10px;"/></div>
+DayZ is an evolving open world environment allowing you to create your own experience.
+Whether you want to survive against the environment, creating your own holdfast against the zombie hordes, play
+against other players as a Bandit or Lawman, or create your own world, the game is your playground.
+</div>
+</div>
+<div id="girl"></div>
+<div id="spot">
+<a class="video" href="javascript:void(0);"><div id="videoPlay"></div></a>
+</div>
+<div id="VideoContent">
+<div style="margin-left: 60px; margin-bottom: -10px;"><img src="Images/video.png" style=""/></div>
+<div style="margin-left:88px;">Check out the game trailer!</div>
+</div>
+</div>
+</div>
+ 
+<div id="dvFeatures" style="display:none;">
+<div id="featuresGuy"></div>
+<div id="featuresContent">
+<div id="scrollbarFeatures">
+<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+<div class="viewport">
+<div class="FeaturesBack">
+<div style="padding-left:95px;">
+<div style="float:left;padding-top:20px;padding-left:55px;">
+<span class="featureLabel">PLAY WITH FRIENDS!</span>  
 </div>
 
-
-<div id="cnt-box">
-	<div id="cnt-top"></div>
-	<div id="cnt-filler">
-	
-		<div id="col-L">
-		
-			<div class="sb-box">
-				<div class="sb-top">
-					<div class="sb-title">Links Dir:</div>
-				</div>
-				<div class="sb-filler">
-				
-					<div class="sb-info">
-						<ul>
-							<li><a href="https://store.steampowered.com/app/221100/DayZ/">Buy DayZ</a></li>
-							<li><a href="https://store.steampowered.com/app/1151700/DayZ_Livonia/">Buy Livonia</a></li>
-							<li><a href="https://github.com/CypherMediaGIT/DayZCommunityOfflineMode-Livonia-Edition">Cyphers Livonia Offline</a></li>
-							<li><a href="https://github.com/CypherMediaGIT/DayZCommunityOfflineMode-DeerIsle-Edition">Cyphers DeerIsle Offline</a></li>
-						</ul>
-					</div>
-				
-				</div>
-				<div class="sb-footer"></div>
-			</div>
-			
-			
-			
-			
-			<div class="sb-box">
-				<div class="sb-top">
-					<div class="sb-title">Military Time</div>
-				</div>
-				<div class="sb-filler">
-				
-					<div class="sb-clock">
-					
-						<script type="text/javascript">new imageclock.display()</script>
-					
-					</div>
-			
-				</div>
-				<div class="sb-footer"></div>
-			</div>
-
-			
-			
-			
-		
-			</div>
-		
-		
-		<div id="col-R">
-		
-			<div class="main-box">
-				<div class="main-top"></div>
-				<div class="main-filler">
-				
-					<div class="main-info">
-						
-						<h1>DayZ Cutters Server Information | Thank You For Playing</h1>
-						
-						<p>
-							&nbsp;<a href="https://www.gametracker.com/server_info/62.182.96.204:2302/" target="_blank"><img src="https://cache.gametracker.com/server_info/62.182.96.204:2302/b_560_95_1.png" border="0" width="560" height="95" alt=""/></a>						
-						</p>
-						
-						<p>
-							&nbsp;<a href="https://www.gametracker.com/server_info/94.154.157.2:2362/" target="_blank"><img src="https://cache.gametracker.com/server_info/94.154.157.2:2362/b_560_95_1.png" border="0" width="560" height="95" alt=""/></a>
-						</p>
-						<p>
-						</p>
-						<p>
-						</p>
-						<p>
-						</p>
-						
-						
-						
-					</div>
-				
-				</div>
-				<div class="main-footer"></div>
-			</div>
-			
-			
-			<div class="main-box">
-				<div class="main-top"></div>
-				<div class="main-filler">
-				
-					<div class="main-info">
-					
-						<h1>Cyphers DayZ Cutters Server | Chernarus | Modded |</h1>
-						<h2>62.182.96.204:2302</h2><br>
-						<h1>Cyphers DayZ Cutters Server | Livonia | Modded |</h1>
-						<h2>94.154.157.2:2362</h2>
-						<h2>Currently Vanilla Server</h2>						
-	
-					</div>
-					
-					
-				<div class="main-divider"></div>
-						
-
-					<div class="main-info">
-					
-					
-						<h1>List Icon Set Included</h1>
-					
-					
-						
-						<ul class="list-1">
-							<li><a class="pl" href="#">Info here</a></li>
-						</ul>
-						
-						<ul class="list-2">
-							<li><a class="pl" href="#">Info here</a></li>
-						</ul>
-	
-						<ul class="list-3">
-							<li><a class="pl" href="#">Info here</a></li>
-						</ul>
-	
-						<ul class="list-4">
-							<li><a class="pl" href="#">Info here</a></li>
-						</ul>
-	
-						<ul class="list-5">
-							<li><a class="pl" href="#">Info here</a></li>
-						</ul>
-	
-						<ul class="list-6">
-							<li><a class="pl" href="#">Info here</a></li>
-						</ul>
-	
-						<ul class="list-7">
-							<li><a class="pl" href="#">Info here</a></li>
-						</ul>
-	
-						<ul class="list-8">
-							<li><a class="pl" href="#">Info here</a></li>
-						</ul>
-	
-						<ul class="list-9">
-							<li><a class="pl" href="#">Info here</a></li>
-						</ul>
-	
-						<ul class="list-10">
-							<li><a class="pl" href="#">Info here</a></li>
-						</ul>
-						
-	
-						
-						
-						
-						
-						
-					
-					</div>
-				
-				</div>
-				<div class="main-footer"></div>
-			</div>
-		
-		</div>
-		
-		
-		<!-- Adjust Height Of Container Below -->
-		<div class="clearB" style="height:20px"></div>
-		
-	</div>
-	<div id="cnt-btm"></div>
+<div class="FeatureText">
+Group up with your friends and other friendly survivors and utilize private group chat to enhance coordination. For greater control, players can form unique clans with their closest allies granting them access to private clan chat, and the ability to share currency through a global Clan Reserve.
+</div>
+</div>
+</div>
+<div class="FeaturesBack" style="margin-top:10px;">
+<div style="padding-left:95px;">
+<div style="float:left;padding-top:20px;padding-left:55px;">
+<span class="featureLabel">MASSIVE OPEN WORLD</span>
 </div>
 
-
-
-<div id="footer">
-	<div id="footer-mid">
-	
-		<div id="footer-col-L">
-			<div id="social-media">
-				<ul>
-					<li><a class="FBbutton" href="#" target="_blank"></a></li>
-					<li><a class="TWbutton" href="#" target="_blank"></a></li>
-					<li><a class="YTbutton" href="#" target="_blank"></a></li>
-				</ul>
-			</div>
-		</div>
-		
-		
-		<div id="footer-col-M">
-			<div id="foot-title-section">DayZ Cutters</div>
-			<div id="foot-title-slogan">"Cutting through all the DayZ BS"</div>
-			
-			<div class="foot-contacts">Community Leader: Cypher</div>
-			<div class="foot-contacts">Recruiter: Simos</div>
-			<div class="foot-contacts">Server Admin/s: Cypher/Simos</div>
-			
-			<div id="foot-disclaimer">Copyright 2019 - Cypher Media - "This 
-				is Fkn Voodoo Magic Mon"</div>
-		</div>
-		
-		
-		<div id="footer-col-R"></div>
-	
-	
-	</div>
+<div class="FeatureText">
+Long gone are the days of skiing in the mountains and peaceful camping trips, the world is now a dangerous place,
+filled with the undead, hungry for flesh, and bandits hungry for your gear. Explore the vastness of a post apocalyptic world!
+</div>
+</div>
+</div>
+<div class="FeaturesBack" style="margin-top:10px;">
+<div style="padding-left:95px;">
+<div style="float:left;padding-top:20px;padding-left:55px;">
+<span class="featureLabel">CALL FOR HELP</span>
 </div>
 
+<div class="FeatureText">
+In a bind? Zombies got you pinned down, or maybe a gang of bandits have forced you to take refuge in a building and they are closing in on your position? Try Calling for help by using the in game Global Chat, enticing those in the area to come to your rescue. However, beware, for not every survivor is genuine, and bandits have been known to bait unsuspecting survivors to their untimely doom.
+</div>
+</div>
+</div>
+<div class="FeaturesBack" style="margin-top:10px;height:180px;">
+<div style="padding-left:95px;">
+<div style="float:left;padding-top:20px;padding-left:55px;">
+<span class="featureLabel">SAFE ZONES</span>
+</div>
 
+<div class="FeatureText">
+There are a few bastions of humanity remaining, so called ‘Safe Zones’ that shield survivors from the hazards of the outside world.
+Here survivors can communicate freely, trade items and resources, form groups, and access their Inventory before they venture out
+into the wild unknown.
+<br/>
+While in Safe Zones, users can also access the Trader to stock up on needed supplies for battle or to sell your finds. No harm in being prepared
+for whatever might be lurking around the corner whether it be a human threat or undead hordes. Be warned, bandits lurk on the outskirts
+of these safe zones waiting to get the drop on unsuspecting victims. Watch your six and do not let your guard down, or it will be the
+last mistake you make.
+</div>
+</div>
+</div>
+<div class="FeaturesBack" style="margin-top:10px;">
+<div style="padding-left:95px;">
+<div style="float:left;padding-top:20px;padding-left:55px;">
+<span class="featureLabel">VOIP</span>
+</div>
+
+<div class="FeatureText">
+Proximity voice chat allows you to quickly communicate with other survivors in your area whether or not they are in your group.
+Use this feature to find friends, locate enemies, and even lure unsuspecting victims to their own demise.
+</div>
+</div>
+</div>
+<div class="FeaturesBack" style="margin-top:10px;">
+<div style="padding-left:95px;">
+<div style="float:left;padding-top:20px;padding-left:55px;">
+<span class="featureLabel">NO CLASSES, NO LEVELS, AND NO LIMITS</span>
+</div>
+
+<div class="FeatureText">
+You control your survivor’s path. As you spend time surviving in the wild, you will be able to aim better, run farther, and hit harder.
+There are no classes, no restrictions, and no unrealistic stat modifications. You and you alone are responsible for your own survival.
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+ 
+<div id="dvMedia" style="display:none;">
+<div id="mediaContent">
+<div id="mediaScreenShots" style="">
+<div id="scrollbar1">
+<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+<div class="viewport">
+<div class="overview">
+<div class="screenshot" style="background-image: url('Images/media_shot01_thumb.jpg');">
+<img class="zoomGallery" src="Images/search.png" index="0"/>
+</div>
+<div class="screenshot" style="background-image: url('Images/media_shot02_thumb.jpg');">
+<img class="zoomGallery" src="Images/search.png" index="1"/>
+</div>
+<div class="screenshot" style="background-image: url('Images/media_shot03_thumb.jpg');">
+<img class="zoomGallery" src="Images/search.png" index="2"/>
+</div>
+<div class="screenshot" style="margin-right: 15px;background-image: url('Images/media_shot04_thumb.jpg');">
+<img class="zoomGallery" src="Images/search.png" index="3"/>
+</div>
+<br style="clear:both;"/>
+<div class="screenshot" style="background-image: url('Images/media_shot05_thumb.jpg');">
+<img class="zoomGallery" src="Images/search.png" index="4"/>
+</div>
+<div class="screenshot" style="background-image: url('Images/media_shot06_thumb.jpg');">
+<img class="zoomGallery" index="5" src="Images/search.png"/>
+</div>
+<div class="screenshot" style="background-image: url('Images/media_shot07_thumb.jpg');">
+<img class="zoomGallery" index="6" src="Images/search.png"/>
+</div>
+<div class="screenshot" style="margin-right: 15px;background-image: url('Images/media_shot08_thumb.jpg');">
+<img class="zoomGallery"  index="7"src="Images/search.png" />
+                        </div>
+                        <br style="clear:both;" />
+                        <div class="screenshot" style="background-image: url('Images/media_shot09_thumb.jpg');">
+                            <img class="zoomGallery"  index="8"src="Images/search.png" />
+                        </div>
+                        <div class="screenshot" style="background-image: url('Images/media_shot10_thumb.jpg');">
+                            <img class="zoomGallery" index="9" src="Images/search.png" />
+                        </div>
+                        <div class="screenshot" style="background-image: url('Images/media_shot11_thumb.jpg');">
+                            <img class="zoomGallery" index="10" src="Images/search.png" />
+                        </div>
+                        <div class="screenshot" style="margin-right: 15px;background-image: url('Images/media_shot12_thumb.jpg');">
+                            <img class="zoomGallery" index="11" src="Images/search.png" />
+                        </div>
+                        <br style="clear:both;" />
+                        <div class="screenshot" style="background-image: url('Images/media_shot13_thumb.jpg');">
+                            <img class="zoomGallery" index="12" src="Images/search.png" />
+                        </div>
+                        <div class="screenshot" style="background-image: url('Images/media_shot14_thumb.jpg');">
+                            <img class="zoomGallery" index="13" src="Images/search.png" />
+                        </div>
+                        <div class="screenshot" style="background-image: url('Images/media_shot15_thumb.jpg');">
+                            <img class="zoomGallery" index="14" src="Images/search.png" />
+                        </div>
+                        <div class="screenshot" style="margin-right: 15px;background-image: url('Images/media_shot16_thumb.jpg');">
+                            <img class="zoomGallery" index="15" src="Images/search.png" />
+                        </div>
+                        <br style="clear:both;" />
+                        <div class="screenshot" style="background-image: url('Images/media_shot17_thumb.jpg');">
+                            <img class="zoomGallery" index="16" src="Images/search.png" />
+                        </div>
+                        <div class="screenshot" style="background-image: url('Images/media_shot18_thumb.jpg');">
+                            <img class="zoomGallery" index="17" src="Images/search.png"/>
+                        </div>
+                        <div class="screenshot" style="background-image: url('Images/media_shot19_thumb.jpg');">
+                            <img class="zoomGallery" index="18" src="Images/search.png"/>
+                        </div>
+                        <div class="screenshot" style="margin-right: 15px;background-image: url('Images/media_shot20_thumb.jpg');">
+                            <img class="zoomGallery" index="19" src="Images/search.png"/>
+                        </div>
+                         <br style="clear:both;" />
+                        <div class="screenshot" style="background-image: url('Images/media_shot21_thumb.jpg');">
+                            <img class="zoomGallery" index="20" src="Images/search.png" />
+                        </div>
+                         </div>
+                     </div>
+                   </div>
+                </div>   
+                <div id="mediaVideos">
+                   <div id="scrollbarVideos">
+                    <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+                     <div class="viewport">
+                       <div class="overview">                        
+                        <div class="videoShot" videoUrl="http://www.youtube.com/embed/wE2ygJJqt8Q?feature=player_embedded&autoplay=1" style="background-image: url('Images/thumb_video_01.png');">
+                            <img class="zoomGallery" src="Images/play.png" index="0" />
+                        </div>
+                        <!--<div class="videoShot" videoUrl="http://www.youtube.com/embed/OCsX4SvL8eU?autoplay=1" style="background-image: url('Images/thumb_video_02.jpg');">
+                            <img class="zoomGallery" src="Images/play.png" index="1" />
+                        </div>
+                        <div class="videoShot" videoUrl="http://www.youtube.com/embed/ougH_mEwyOo?autoplay=1" style="background-image: url('Images/thumb_video_03.jpg');">
+                            <img class="zoomGallery" src="Images/play.png" index="2"/>
+                        </div>
+                        <div class="videoShot" videoUrl="http://www.youtube.com/embed/UuFUOovIhAs?autoplay=1" style="margin-right: 15px;background-image: url('Images/thumb_video_04.jpg');">
+                            <img class="zoomGallery" src="Images/play.png" index="3"/>
+                        </div>   
+                        <br style="clear:both;" />
+                        <div class="videoShot" videoUrl="http://www.youtube.com/embed/pfnpQDAHmwg?autoplay=1" style="background-image: url('Images/thumb_video_05.jpg');">
+                            <img class="zoomGallery" index="12" src="Images/play.png"/>
+                        </div>
+                        <div class="videoShot" videoUrl="http://www.youtube.com/embed/ExHAUN0nX30?autoplay=1" style="background-image: url('Images/thumb_video_06.jpg');">
+                            <img class="zoomGallery" index="13" src="Images/play.png" />
+                        </div>
+                        <div class="videoShot" videoUrl="http://www.youtube.com/embed/iu0JHSQ_ZU4?autoplay=1" style="background-image: url('Images/thumb_video_07.jpg');">
+                            <img class="zoomGallery" index="14" src="Images/play.png"/>
+                        </div>
+                        <div class="videoShot" videoUrl="http://www.youtube.com/embed/0UwpLOVTjLU?autoplay=1" style="margin-right: 15px;background-image: url('Images/thumb_video_08.jpg');">
+                            <img class="zoomGallery" index="15" src="Images/play.png" />
+                        </div> -->                                            
+                         </div>
+                     </div>
+                   </div>
+                </div>
+                <div id="mediaWallpapers" style="overflow:auto; height:445px;display:none;">
+                    <div>
+                        <div class="wallpaper" style="background-image: url('Images/media_wallp01_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="0" />
+                        </div>
+                        <div class="wallpaper" style="background-image: url('Images/media_wallp02_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="1" />
+                        </div>
+                        <div class="wallpaper" style="background-image: url('Images/media_wallp03_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="2"/>
+                        </div>
+                        <div class="wallpaper" style="margin-right: 15px;background-image: url('Images/media_wallp04_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="3" />
+                        </div>
+                   </div>
+                </div> 
+                <div id="mediaSketches" style="height:445px;">
+                   <div id="sketchScrollbar">
+                    <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+                     <div class="viewport">
+                       <div class="overview"> 
+                        <div class="sketch" style="background-image: url('Images/media_sketch01_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="0" />
+                        </div>
+                        <div class="sketch" style="background-image: url('Images/media_sketch02_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="1" />
+                        </div>
+                        <div class="sketch" style="background-image: url('Images/media_sketch03_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="2" />
+                        </div>
+                        <div class="sketch" style="margin-right: 15px;background-image: url('Images/media_sketch04_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="3" />
+                        </div>
+                        <br style="clear:both;" />
+                        <div class="sketch" style="background-image: url('Images/media_sketch05_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="4" />
+                        </div>
+                        <div class="sketch" style="background-image: url('Images/media_sketch06_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="5" />
+                        </div>
+                        <div class="sketch" style="background-image: url('Images/media_sketch07_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="6" />
+                        </div>
+                        <div class="sketch" style="margin-right: 15px;background-image: url('Images/media_sketch08_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="7" />
+                        </div>                       
+                        <br style="clear:both;" />
+                        <div class="sketch" style="background-image: url('Images/media_sketch09_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="8" />
+                        </div>
+                        <div class="sketch" style="background-image: url('Images/media_sketch10_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="9" />
+                        </div>
+                        <div class="sketch" style="background-image: url('Images/media_sketch11_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="10" />
+                        </div>
+                        <div class="sketch" style="margin-right: 15px;background-image: url('Images/media_sketch12_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="11" />
+                        </div>                      
+                        <br style="clear:both;" />
+                        <div class="sketch" style="background-image: url('Images/media_sketch13_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="12" />
+                        </div>
+                        <div class="sketch" style="background-image: url('Images/media_sketch14_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="13" />
+                        </div>
+                        <div class="sketch" style="background-image: url('Images/media_sketch15_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="14" />
+                        </div>
+                        <div class="sketch" style="margin-right: 15px;background-image: url('Images/media_sketch16_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="15" />
+                        </div>                                            
+                        <br style="clear:both;" />
+                        <div class="sketch" style="background-image: url('Images/media_sketch17_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="16" />
+                        </div>
+                        <div class="sketch" style="background-image: url('Images/media_sketch18_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="17" />
+                        </div>
+                        <div class="sketch" style="background-image: url('Images/media_sketch19_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="18" />
+                        </div>
+                        <div class="sketch" style="margin-right: 15px;background-image: url('Images/media_sketch20_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="19" />
+                        </div>
+                        <br style="clear:both;" />
+                        <div class="sketch" style="background-image: url('Images/media_sketch21_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="20" />
+                        </div>
+                       <div class="sketch" style="background-image: url('Images/media_sketch22_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="21" />
+                        </div>
+                        <div class="sketch" style="background-image: url('Images/media_sketch23_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="22" />
+                        </div>
+                        <div class="sketch" style="margin-right: 15px;background-image: url('Images/media_sketch24_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="23" />
+                        </div>
+                        <br style="clear:both;" />
+                        <div class="sketch" style="background-image: url('Images/media_sketch25_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="24" />
+                        </div>
+                       <div class="sketch" style="background-image: url('Images/media_sketch26_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="25" />
+                        </div>
+                        <div class="sketch" style="background-image: url('Images/media_sketch27_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="26" />
+                        </div>
+                        <div class="sketch" style="margin-right: 15px;background-image: url('Images/media_sketch28_thumb.jpg');">
+                            <img class="zoomGallery" src="Images/search.png" index="27" />
+                        </div>                                                               
+                         </div>
+                     </div>
+                   </div>
+                </div>        
+              </div>
+              <div id="mediaMenu">
+                    <div id='lnkShots'></div>
+                    <div id='lnkVideos'></div>
+                    <div id='lnkWallpapers'></div>
+                    <div id='lnkSketches'></div>
+                </div>
+	        </div>	
+
+            <!-- Get Game Page -->
+            <div id="dvGetGame" style="display:none;">                
+                <iframe src="steam.html" width="1250" height="625" frameborder="no" ALLOWTRANSPARENCY="true" style="background:none;display:block;margin: 0 auto;" scrolling="no" onload="window.parent.parent.scrollTo(0,0)"></iframe>
+                <div id="dvGameMsg" style="padding-top:40px;width:1070px;">
+                    <img src="Images/warning.png" />
+                    <div id="btnBack"></div>
+                </div>
+            
+            </div>
+
+           <!-- Support Page -->
+            <div id="dvSupport" style="display:none;padding-left: 290px; padding-top: 220px;width:900px;">                
+                <div class="support1" style="padding-right:105px;"></div>
+                <div class="support2" style="padding-right:15px;"></div>
+                <!--div class="support3" style="padding-right:15px;"></div>
+                <div class="support4"></div-->            
+            </div>
+
+    </div>
+    
+    <div id="footer">
+       &#169; 2020 Cypher Media Gaming. Developed by Cypher.
+    </div>
+
+
+    <div id="dvModal" class="Modal" style="width:850px;">
+        <div class="ModalContent" style="width:850px;height:477px;background-image:url('Images/frame.png');">
+            <div style="padding: 41px 22px 20px 30px; height: 393px;">
+                <img src="Images/sample.jpg" style="width: 794px; height: 395px;" />
+            </div>
+        </div>
+    </div>
 </body>
 </html>
