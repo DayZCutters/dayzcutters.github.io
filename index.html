@@ -91,7 +91,7 @@
                 indexDiv = 'dvSupport';
                 location.hash = "#support";
             } else if (index == 6) {
-                menuName = 'forum';
+                menuName = 'for';
                 linkId = 'lnkForum';
                 indexDiv = 'dvForum';
                 location.hash = "#forum";
@@ -256,8 +256,7 @@
             });
 
             $('#lnkForum').click(function () {
-                MoveToPage(1);
-				//window.open('http://www.nadakacheri.karnataka.gov.in/Styles/images1/JuHWY.png');
+                MoveToPage(6);
             });
 
             $('#nextslide, #prevslide').hover(
@@ -335,6 +334,22 @@
 
                 }
              );
+			 
+			$("#lnkSupport").hover(
+                function () {
+                    if (currentIdx != 5) {
+                        $(this).css('backgroundPosition', "-864px 0");
+                    }
+                },
+                function () {
+                    if (currentIdx == 5) {
+                        $(this).css('backgroundPosition', "-1002px 0");
+                    }
+                    else {
+                        $(this).css('backgroundPosition', "-1140px 0");
+                    }
+                }
+             );
 
             $("#lnkForum").hover(
                 function () {
@@ -353,21 +368,7 @@
              );
 
 
-            $("#lnkSupport").hover(
-                function () {
-                    if (currentIdx != 5) {
-                        $(this).css('backgroundPosition', "-864px 0");
-                    }
-                },
-                function () {
-                    if (currentIdx == 5) {
-                        $(this).css('backgroundPosition', "-1002px 0");
-                    }
-                    else {
-                        $(this).css('backgroundPosition', "-1140px 0");
-                    }
-                }
-             );
+
 
 
 
@@ -1256,10 +1257,9 @@ There are no classes, no restrictions, and no unrealistic stat modifications. Yo
 			
             <!-- Get Forum Page -->
             <div id="dvForum" style="display:none;">                
-                <iframe src="news.html" width="1250" height="625" frameborder="no" ALLOWTRANSPARENCY="true" style="background:none;display:block;margin: 0 auto;" scrolling="no" onload="window.parent.parent.scrollTo(0,0)"></iframe>
+                <iframe src="news.html" width="1250" height="2000" frameborder="no" ALLOWTRANSPARENCY="true" style="background:none;display:block;margin: 0 auto;" scrolling="no" onload="window.parent.parent.scrollTo(0,0)"></iframe>
                 <div id="dvForum" style="padding-top:40px;width:1070px;">
                     <img src="Images/warning.png" />
-                    <div id="btnBack"></div>
                 </div>
             
             </div>			
