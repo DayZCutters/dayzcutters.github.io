@@ -90,6 +90,11 @@
                 linkId = 'lnkSupport';
                 indexDiv = 'dvSupport';
                 location.hash = "#support";
+            } else if (index == 6) {
+                menuName = 'forum';
+                linkId = 'lnkForum';
+                indexDiv = 'dvForum';
+                location.hash = "#forum";
             }
 
             //Change Menu
@@ -98,6 +103,7 @@
             $('#lnkMedia').css('backgroundPosition', "-1635px 0px");
             $('#lnkGetGame').css('backgroundPosition', "-582px 0px");
             $('#lnkSupport').css('backgroundPosition', "-1140px  0px");
+            $('#lnkForum').css('backgroundPosition', "-1140px  0px");			
 
 
             if (index == 1) {
@@ -110,6 +116,8 @@
                 $('#lnkGetGame').css('backgroundPosition', "0 0");
             } else if (index == 5) {
                 $('#lnkSupport').css('backgroundPosition', "-1002px 0px");
+            }  else if (index == 6) {
+                $('#lnkForum').css('backgroundPosition', "-1002px 0px");
             }
 
             //Slide Content
@@ -124,6 +132,8 @@
                 currentDiv = 'dvGetGame';
             } else if (currentIdx == 5) {
                 currentDiv = 'dvSupport';
+            } else if (currentIdx == 6) {
+                currentDiv = 'dvForum';
             }
 
             var slideOutSign = "";
@@ -609,7 +619,7 @@
             $(".video").click(function () {
                 $.fancybox({
                     'padding': 10,
-                    'href': 'http://www.youtube.com/embed/wE2ygJJqt8Q?feature=player_embedded&autoplay=1',
+                    'href': 'http://www.youtube.com/embed/aVOqb9kLklE?feature=player_embedded&autoplay=1',
                     'transitionIn': 'elastic',
                     'transitionOut': 'elastic',
                     'type': 'iframe',
@@ -844,6 +854,9 @@
             }
             else if (location.hash == "#support") {
                 MoveToPage(5);
+            }
+			else if (location.hash == "#forum") {
+                MoveToPage(6);
             }
 
 
@@ -1240,6 +1253,16 @@ There are no classes, no restrictions, and no unrealistic stat modifications. Yo
                 <!--div class="support3" style="padding-right:15px;"></div>
                 <div class="support4"></div-->            
             </div>
+			
+            <!-- Get Forum Page -->
+            <div id="dvForum" style="display:none;">                
+                <iframe src="news.html" width="1250" height="625" frameborder="no" ALLOWTRANSPARENCY="true" style="background:none;display:block;margin: 0 auto;" scrolling="no" onload="window.parent.parent.scrollTo(0,0)"></iframe>
+                <div id="dvForum" style="padding-top:40px;width:1070px;">
+                    <img src="Images/warning.png" />
+                    <div id="btnBack"></div>
+                </div>
+            
+            </div>			
 
     </div>
     
